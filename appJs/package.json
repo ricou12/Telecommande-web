@@ -1,0 +1,20 @@
+{
+  "name": "raspicode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile-sass": "node-sass sass/main.scss public_html/assets/css/main.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.5.0",
+    "serial": "0.0.9"
+  },
+  "devDependencies": {
+    "node-sass": "^4.14.1"
+  }
+}
