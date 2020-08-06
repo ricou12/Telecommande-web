@@ -1,10 +1,4 @@
 
-// TODO 
-// Ajouter une action par chaque icon dans le tableau
-// Envoyer les requete au serveur node  à partir d'une fonction en utilisant fetch.
-// 
-
-
 const images = [{
         'setAction': 'moteur_AvGauche',
         'default': 'hautGauche.png',
@@ -87,16 +81,23 @@ const images = [{
     },
 ];
 
-let icons = document.querySelectorAll('.icon');
-const dataServer = document.querySelector('.terminal');
+// Dossier contenant les images des boutons de commandes
 const path = "assets/images/";
+// Séléctionne tout les boutons du panneau de contrôle
+let icons = document.querySelectorAll('.icon');
+// Balise div pour afficher les messages renvoyé par le server a la suite d'une requête asynchrone
+const dataServer = document.getElementById('dataServer');
 
+
+
+// Parcours l'ensemble des boutons de contrôle commande pour recupèrer l'action a envoyer au server et modifier l'image
 icons.forEach(icon => {
+    // Evenement bouton souris relachée sur le bouton de contrôle commande
     icon.addEventListener('mousedown', event => {
         // Récupère la valeur de l'attribut action du bouton de commande
-        // lorsque l'utilisateur appuie sur le bouton gauche de la souris.
+        // lorsque l'utilisateur click sur le bouton gauche de la souris.
         let action = icon.getAttribute('action');
-        // Parcours le tableau recupere l'action etr change l'image sur l'évenement down et up.
+        // Parcours le tableau recupere l'action et change l'image sur l'évenement down et up.
         images.forEach(element => {
             if (element.setAction == action) {
                 // console.log(element.setAction + '  ' + action + '  ' + element.hover);
@@ -105,7 +106,8 @@ icons.forEach(icon => {
             }
         });
     });
-
+    // Evenement bouton 
+    // souris appuyé sur le bouton de contrôle commande
     icon.addEventListener('mouseup', event => {
         // Récupère la valeur de l'attribut action du bouton de commande
         // lorsque l'utilisateur relache le bouton gauche de la souris.
@@ -130,7 +132,7 @@ const requestGetToServer = (action) => {
             if (returnData) {
                 // traitement de la réponse
                console.log(returnData);
-               dataServer.innerHTML = `${returnData}`;
+               dataServer.innerHTML += `${returnData}`;
             } else {
                 console.log("Erreur du serveur !");
             }
@@ -141,21 +143,21 @@ const requestGetToServer = (action) => {
 }
 
 // ENVOIE LA REQUETE VERS LE SERVEUR DISTANT
-const requestToServer = (command, action, data) => {
-    fetch('http://localhost:3000/'+action, {
-            method: "POST",
-            body: JSON.stringify(data)
-        })
-        .then(res => res.json())
-        .then(returnData => {
-            if (returnData) {
-                // traitement de la réponse
-                executeWork(command, returnData);
-            } else {
-                $txtResult.value = "Erreur du serveur !";
-            }
-        })
-        .catch((error) => {
-            $txtResult.value = 'Il y a eu un problème avec l\'opération fetch: ' + error.message;
-        });
-}
+// const requestToServer = (command, action, data) => {
+//     fetch('http://localhost:3000/'+action, {
+//             method: "POST",
+//             body: JSON.stringify(data)
+//         })
+//         .then(res => res.json())
+//         .then(returnData => {
+//             if (returnData) {
+//                 // traitement de la réponse
+//                 executeWork(command, returnData);
+//             } else {
+//                 $txtResult.value = "Erreur du serveur !";
+//             }
+//         })
+//         .catch((error) => {
+//             $txtResult.value = 'Il y a eu un problème avec l\'opération fetch: ' + error.message;
+//         });
+// }
